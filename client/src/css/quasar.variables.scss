@@ -1,0 +1,45 @@
+// Quasar SCSS (& Sass) Variables
+// --------------------------------------------------
+// To customize the look and feel of this app, you can override
+// the Sass/SCSS variables found in Quasar's source Sass/SCSS files.
+
+// Check documentation for full list of Quasar variables
+
+// Your own variables (that are declared here) and Quasar's own
+// ones will be available out of the box in your .vue/.scss/.sass files
+
+// It's highly recommended to change the default colors
+// to match your app's branding.
+// Tip: Use the "Theme Builder" on Quasar's documentation website.
+// Example: Import Open Sans with multiple weights
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
+
+// Set the default font-family
+$typography-font-family : 'Poppins', sans-serif !default;
+
+// Fix font-weight values to match the imported font family weights
+$text-weights: (thin: 300, light: 400, regular: 600, medium: 700, bold: 800, bolder: 800) !default;
+$button-font-weight: 600; // or 400 if you prefer thinner;
+
+
+@mixin fluid-font-size($minimumSize: 12, $maximumSize: 36, $minimumViewportWidth: 300, $maximumViewportWidth: 1600){
+  font-size: calc(#{$minimumSize}px + (#{$maximumSize} - #{$minimumSize}) * ((100vw - #{$minimumViewportWidth}px) / (#{$maximumViewportWidth} - #{$minimumViewportWidth}))) !important;
+}
+
+@for $num from 8 through 28 {
+  .fontsize-#{$num}{
+    @include fluid-font-size(#{$num}, (#{$num * 2 + 2}), 300, 1800);
+  }
+}
+
+$primary: #1976d2;
+$secondary: #26a69a;
+$accent: #9c27b0;
+
+$dark: #1d1d1d;
+
+$positive: #21ba45;
+$negative: #c10015;
+$info: #31ccec;
+$warning: #f2c037;
+
