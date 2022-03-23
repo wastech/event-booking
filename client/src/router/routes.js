@@ -3,6 +3,7 @@ const routes = [
   { path: "/event", component: () => import("pages/event.vue") },
   { path: "/events", component: () => import("pages/events.vue") },
   { path: "/blogs", component: () => import("pages/blogs.vue") },
+
   {
     path: "/blog/:id",
     component: () => import("pages/blogDetail.vue"),
