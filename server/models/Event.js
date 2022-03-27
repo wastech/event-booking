@@ -14,12 +14,23 @@ const PostSchema = new Schema(
       type: String,
       minlength: [3, "Must be three characters long"],
     },
-    ticket_price: {
-      type: Number,
-      required: [true, "Please enter product price"],
-      maxLength: [5, "Product name cannot exceed 5 characters"],
-      default: 0.0,
-    },
+    ticket_price: [
+      {
+        price: {
+          type: Number,
+          required: [true, "Please enter product price"],
+          maxLength: [5, "Product name cannot exceed 5 characters"],
+          default: 0.0,
+        },
+        stock: {
+          type: Number,
+          required: [true, "Please enter product stock"],
+          maxLength: [5, "Product name cannot exceed 5 characters"],
+          default: 0,
+        },
+      },
+    ],
+    tags: { type: String },
     slug: {
       type: String,
       slug: "title",
@@ -40,9 +51,23 @@ const PostSchema = new Schema(
         required: true,
       },
     },
-
-    tags: [{ type: String }],
-
+    reviews: [
+      {
+        user: {
+          type: mongoose.Schema.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        comment: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
+    numOfReviews: {
+      type: Number,
+      default: 0,
+    },
     eventcategoryId: {
       type: mongoose.Schema.ObjectId,
       ref: "EventCategory",
