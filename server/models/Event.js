@@ -14,7 +14,7 @@ const PostSchema = new Schema(
       type: String,
       minlength: [3, "Must be three characters long"],
     },
-    price: {
+    ticket_price: {
       type: Number,
       required: [true, "Please enter product price"],
       maxLength: [5, "Product name cannot exceed 5 characters"],
@@ -28,10 +28,8 @@ const PostSchema = new Schema(
     description: {
       type: String,
       required: [true, "Please enter event description"],
-      
     },
 
-    
     imageUrl: {
       public_id: {
         type: String,
