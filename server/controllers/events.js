@@ -93,7 +93,7 @@ exports.getCategories = asyncHandler(async (req, res, next) => {
 
 // Get single post details   =>   /api/v1/post/:categoryId
 exports.getRelated = asyncHandler(async (req, res, next) => {
-  const categories = await Post.find({
+  const categories = await Event.find({
     eventcategoryId: req.params.eventcategoryId,
   })
     .populate("userId")
@@ -111,7 +111,7 @@ exports.getRelated = asyncHandler(async (req, res, next) => {
 
 // Get user post   =>   /api/v1/post/:userId
 exports.getUserPosts = asyncHandler(async (req, res, next) => {
-  const userPosts = await Post.find({ userId: req.params.userId })
+  const userPosts = await Event.find({ userId: req.params.userId })
     .populate("userId")
     .populate("categoryId");
 
@@ -126,7 +126,7 @@ exports.getUserPosts = asyncHandler(async (req, res, next) => {
 
 // Get single post details   =>   /api/v1/post/:categoryId
 exports.getTags = asyncHandler(async (req, res, next) => {
-  const tags = await Post.find({ tags: req.params.tagsId })
+  const tags = await Event.find({ tags: req.params.tagsId })
     .populate("userId")
     .populate("categoryId");
 
@@ -141,8 +141,8 @@ exports.getTags = asyncHandler(async (req, res, next) => {
 
 // Update Product   =>   /api/v1/admin/product/:id
 // Update Product   =>   /api/v1/admin/product/:id
-exports.updatePost = asyncHandler(async (req, res, next) => {
-  let post = await Post.findById(req.params.id);
+exports.updateEvent = asyncHandler(async (req, res, next) => {
+  let post = await Event.findById(req.params.id);
   await cloudinary.uploader.destroy(post.cloudinary_id);
   // Upload image to cloudinary
   let result;
@@ -157,7 +157,7 @@ exports.updatePost = asyncHandler(async (req, res, next) => {
     imageUrl: result.secure_url,
     cloudinary_id: result.public_id,
   };
-  post = await Post.findByIdAndUpdate(req.params.id, data, { new: true });
+  post = await Event.findByIdAndUpdate(req.params.id, data, { new: true });
   res.status(200).json({
     success: true,
     post,
@@ -165,8 +165,8 @@ exports.updatePost = asyncHandler(async (req, res, next) => {
 });
 
 // Delete post   =>   /api/v1/admin/post/:id
-exports.deletePost = asyncHandler(async (req, res, next) => {
-  const post = await Post.findById(req.params.id);
+exports.deleteEvent = asyncHandler(async (req, res, next) => {
+  const post = await Event.findById(req.params.id);
 
   await cloudinary.uploader.destroy(post.imageUrl.public_id);
   if (!post) {

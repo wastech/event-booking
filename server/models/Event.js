@@ -8,7 +8,7 @@ const options = {
   truncate: 120,
 };
 mongoose.plugin(slug, options);
-const PostSchema = new Schema(
+const EventSchema = new Schema(
   {
     title: {
       type: String,
@@ -51,7 +51,7 @@ const PostSchema = new Schema(
         required: true,
       },
     },
-   
+
     numOfReviews: {
       type: Number,
       default: 0,
@@ -69,4 +69,4 @@ const PostSchema = new Schema(
   { toJSON: { virtuals: true }, toObject: { virtuals: true }, timestamps: true }
 );
 
-module.exports = mongoose.model("Post", PostSchema);
+module.exports = mongoose.model("Event", EventSchema);

@@ -35,6 +35,7 @@ const postCategories = require("./routes/postCategories");
 const comments = require("./routes/comments");
 const tags = require("./routes/tags");
 const posts = require("./routes/posts");
+const events = require("./routes/events");
 
 const app = express();
 
@@ -103,6 +104,7 @@ app.use("/api/v1/postCategories", postCategories);
 app.use("/api/v1/comments", comments);
 app.use("/api/v1/tags", tags);
 app.use("/api/v1/posts", posts);
+app.use("/api/v1/events", events);
 
 app.use(errorHandler);
 
