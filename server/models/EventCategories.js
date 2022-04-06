@@ -22,7 +22,7 @@ const EventCategorySchema = new Schema(
   { timestamps: true }
 );
 
-PostCategorySchema.plugin(uniqueValidator, {
+EventCategorySchema.plugin(uniqueValidator, {
   message: "{PATH} already exists.",
 });
 

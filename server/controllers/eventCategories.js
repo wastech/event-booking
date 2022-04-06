@@ -1,6 +1,6 @@
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
-const Category = require("../models/EventCategory");
+const Category = require("../models/EventCategories");
 
 // @desc    Get categories
 // @route   GET /api/v1/categories

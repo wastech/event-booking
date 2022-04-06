@@ -9,9 +9,10 @@
           <div
             class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 q-my-xs"
           >
-            <!--        v-model="post.title" -->
+            <!--        -->
             <q-input
               filled
+              v-model="post.title"
               :rules="[(val) => !!val || 'Field is required']"
               label="Event Category Title"
               stack-label
@@ -24,8 +25,9 @@
               type="submit"
               class="full-width"
               color="primary"
+              @click.prevent="addTask"
             />
-            <!--   @click.prevent="addTask" -->
+            <!--    -->
           </div>
         </div>
       </q-form>
@@ -47,15 +49,15 @@
           <template v-slot:body-cell-Name="props">
             <q-td :props="props">
               <q-item style="max-width: 420px">
-                <!-- <q-item-section avatar>
-                <q-avatar>
-                  <img :src="props.row.avatar.url" />
-                </q-avatar>
-              </q-item-section> -->
+                <q-item-section avatar v-if="props.row.avatar">
+                  <q-avatar>
+                    <img :src="props.row.avatar.url" />
+                  </q-avatar>
+                </q-item-section>
 
                 <q-item-section>
-                  <!-- <q-item-label>{{ props.row.userId.name }}</q-item-label> -->
-                  <q-item-label>Aremu</q-item-label>
+                  <q-item-label>{{ props.row.userId.name }}</q-item-label>
+                  <!-- <q-item-label>Aremu</q-item-label> -->
                 </q-item-section>
               </q-item>
             </q-td>
@@ -63,8 +65,15 @@
           <template v-slot:body-cell-Action="props">
             <q-td :props="props">
               <q-btn icon="edit" size="sm" flat dense />
-              <!--      @click="onDelete(props.row._id)" -->
-              <q-btn icon="delete" size="sm" class="q-ml-sm" flat dense />
+              <!--     -->
+              <q-btn
+                icon="delete"
+                @click="onDelete(props.row._id)"
+                size="sm"
+                class="q-ml-sm"
+                flat
+                dense
+              />
             </q-td>
           </template>
         </q-table>
@@ -74,7 +83,7 @@
 </template>
 
 <script>
-// import categoriesService from "../services/categoriesService";
+import categoriesService from "../services/eventCategoriesService";
 const data = [];
 const columns = [
   {
@@ -109,65 +118,67 @@ const columns = [
 export default {
   data() {
     return {
-      // post: {},
+      post: {},
       data,
       columns,
     };
   },
-  // methods: {
-  //   async getPosts() {
-  //     try {
-  //       await categoriesService.cate().then((response) => {
-  //         this.data = response.data.data;
-  //       });
-  //     } catch (err) {
-  //       console.log(err.response);
-  //     }
-  //   },
-  //   async onDelete(id) {
-  //     try {
-  //       await categoriesService.deleteCat(id).then((response) => {
-  //         this.$q.notify({
-  //           type: "positive",
-  //           timeout: 1000,
-  //           position: "center",
-  //           message: "success",
-  //         });
-  //         this.getPosts();
-  //       });
-  //     } catch (error) {
-  //       this.$q.notify({
-  //         type: "negative",
-  //         timeout: 1000,
-  //         position: "center",
-  //         message: error.response.data.error,
-  //       });
-  //     }
-  //   },
-  //   async addTask() {
-  //     try {
-  //       await categoriesService.categories(this.post).then((response) => {
-  //         this.$q.notify({
-  //           type: "positive",
-  //           timeout: 1000,
-  //           position: "center",
-  //           message: "success",
-  //         });
-  //         this.getPosts();
-  //       });
-  //     } catch (error) {
-  //       this.$q.notify({
-  //         type: "negative",
-  //         timeout: 1000,
-  //         position: "center",
-  //         message: error.response.data.error,
-  //       });
-  //     }
-  //   },
-  // },
-  // async mounted() {
-  //   this.getPosts();
-  // },
+  methods: {
+    async getPosts() {
+      try {
+        await categoriesService.getCategories().then((response) => {
+          this.data = response.data.data;
+        });
+      } catch (err) {
+        console.log(err.response);
+      }
+    },
+    async onDelete(id) {
+      try {
+        await categoriesService.deleteCat(id).then((response) => {
+          this.$q.notify({
+            type: "positive",
+            timeout: 1000,
+            position: "center",
+            message: "success",
+          });
+          this.getPosts();
+        });
+      } catch (error) {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          position: "center",
+          message: error.response.data.error,
+        });
+      }
+    },
+    async addTask() {
+      try {
+        await categoriesService.postCategories(this.post).then((response) => {
+          this.$q.notify({
+            type: "positive",
+            timeout: 1000,
+            position: "center",
+            message: "success",
+          });
+          this.getPosts();
+        });
+      } catch (error) {
+        this.$q.notify({
+          type: "negative",
+          timeout: 1000,
+          position: "center",
+          message:error.response.data.error,
+        });
+         console.log(error)
+
+      }
+    },
+  },
+  async mounted() {
+    this.getPosts();
+  },
 };
 </script>
 

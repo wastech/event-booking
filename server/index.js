@@ -32,6 +32,7 @@ cloudinary.config({
 const auth = require("./routes/auth");
 const users = require("./routes/users");
 const postCategories = require("./routes/postCategories");
+const eventCategories = require("./routes/eventCategories");
 const comments = require("./routes/comments");
 const tags = require("./routes/tags");
 const posts = require("./routes/posts");
@@ -101,6 +102,7 @@ if (process.env.NODE_ENV === "production") {
 app.use("/api/v1/auth", auth);
 app.use("/api/v1/users", users);
 app.use("/api/v1/postCategories", postCategories);
+app.use("/api/v1/eventCategories", eventCategories);
 app.use("/api/v1/comments", comments);
 app.use("/api/v1/tags", tags);
 app.use("/api/v1/posts", posts);
