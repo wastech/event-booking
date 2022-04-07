@@ -49,6 +49,10 @@ const routes = [
         path: "createpost",
         component: () => import("components/CreatePost.vue"),
       },
+      {
+        path: "createevent",
+        component: () => import("components/CreateEvent.vue"),
+      },
       // { path: "category", component: () => import("pages/category.vue") },
       // { path: "setting", component: () => import("pages/setting.vue") },
       // { path: "users", component: () => import("pages/users.vue") },

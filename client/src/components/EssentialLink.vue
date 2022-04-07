@@ -97,7 +97,7 @@
 
     <q-expansion-item icon="event" label="Events">
       <q-list class="q-pl-lg">
-        <q-item to="/create-event" active-class="q-item-no-link-highlighting">
+        <q-item to="/admin/createevent" active-class="q-item-no-link-highlighting">
           <q-item-section avatar>
             <q-icon name="post_add" />
           </q-item-section>

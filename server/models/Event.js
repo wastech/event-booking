@@ -14,31 +14,56 @@ const EventSchema = new Schema(
       type: String,
       minlength: [3, "Must be three characters long"],
     },
-    ticket_price: [
-      {
-        price: {
-          type: Number,
-          required: [true, "Please enter product price"],
-          maxLength: [5, "Product name cannot exceed 5 characters"],
-          default: 0.0,
-        },
-        stock: {
-          type: Number,
-          required: [true, "Please enter product stock"],
-          maxLength: [5, "Product name cannot exceed 5 characters"],
-          default: 0,
-        },
-      },
-    ],
-    tags: { type: String },
+
+    free_ticket: {
+      type: String,
+      default: "Free",
+    },
+    number_of_free_ticket: {
+      type: String,
+      default: "Free",
+    },
+    silver_ticket: {
+      type: Number,
+      default: 0.0,
+    },
+    gold_ticket: {
+      type: Number,
+      default: 0.0,
+    },
+
+    number_of_silver_ticket: {
+      type: Number,
+      default: 0.0,
+    },
+    number_of_gold_ticket: {
+      type: Number,
+      default: 0.0,
+    },
+
+    tags: [ String ],
     slug: {
       type: String,
       slug: "title",
       unique: true,
     },
+    start_date: { type: Date },
+    end_date: { type: Date },
     description: {
       type: String,
       required: [true, "Please enter event description"],
+    },
+    room: {
+      type: String,
+      required: [true, "Please enter event description"],
+    },
+    address: {
+      type: String,
+      required: [true, "Please enter event address"],
+    },
+    venue: {
+      type: String,
+      required: [true, "Please enter event venue"],
     },
 
     imageUrl: {

@@ -60,7 +60,7 @@ exports.getEvents = asyncHandler(async (req, res, next) => {
 exports.getEvent = asyncHandler(async (req, res, next) => {
   const event = await Event.findById(req.params.id)
     .populate("userId")
-    .populate("eventcategoryId", "title")
+    .populate("eventcategoryId", "title");
 
   if (!event) {
     return next(new ErrorResponse("post not found", 404));
