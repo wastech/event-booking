@@ -38,8 +38,13 @@
               <div class="">
                 <span>
                   <q-icon name="local_offer" class="q-mr-sm" /> Tag:
-                  <a href="" class="q-mx-sm text-caption" v-for="(tag, index) in item.tags" :key="index">{{tag}}</a>
-
+                  <a
+                    href=""
+                    class="q-mx-sm text-caption"
+                    v-for="(tag, index) in item.tags"
+                    :key="index"
+                    >{{ tag }}</a
+                  >
                 </span>
               </div>
               <div class="">
@@ -59,7 +64,7 @@
         </div>
 
         <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-xl-12">
-          <event-side />
+          <event-side :item="item" />
         </div>
       </div>
     </div>
@@ -67,7 +72,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import moment from "moment";
 import EventSide from "../components/EventSide.vue";
 import EventTab from "src/components/EventTab.vue";
 import postService from "../services/eventService";

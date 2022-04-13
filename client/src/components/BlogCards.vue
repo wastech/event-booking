@@ -76,7 +76,6 @@
 
 <script>
 import moment from "moment";
-import postService from "../services/postService";
 export default {
   name: "PageIndex",
   props: ["items"],

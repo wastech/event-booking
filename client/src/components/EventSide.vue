@@ -7,38 +7,38 @@
     <div class="event_widget event_info">
       <div class="text-h4 title">Event Detail</div>
       <q-card-actions align="between" class="text-weight-medium">
-        <div class="text-subtitle1">State Date:</div>
-        <div class="text-caption">Dec 18, 2024 7:01</div>
+        <div class="text-subtitle1">Started Date:</div>
+        <div class="text-caption">{{ moment(item.start_date).format("MMM Do YY") }}</div>
       </q-card-actions>
       <q-card-actions align="between" class="text-weight-medium">
         <div class="text-subtitle1">End Date::</div>
-        <div class="text-caption">Dec 18, 2024 7:01 pm</div>
+        <div class="text-caption">{{ moment(item.end_date).format("MMM Do YY")}}</div>
       </q-card-actions>
       <q-card-actions align="between" class="text-weight-medium">
         <div class="text-subtitle1">Room: :</div>
-        <div class="text-caption">Room 02</div>
+        <div class="text-caption">{{ item.room }}</div>
       </q-card-actions>
       <q-card-actions align="between" class="text-weight-medium">
         <div class="text-subtitle1">Venue::</div>
-        <div class="text-caption">Beekman Street, New York</div>
+        <div class="text-caption">{{ item.venue }}</div>
       </q-card-actions>
       <q-card-actions align="between" class="text-weight-medium">
         <div class="text-subtitle1">Address:</div>
         <div class="text-caption">
-          Broadway 473 Broadway, New York, NY 10012
+          {{ item.address }}
         </div>
       </q-card-actions>
     </div>
 
-    <div class="event_widget event_info">
+    <div class="event_widget event_info" v-if="item.userId">
       <div class="text-h4 title">Organizers</div>
       <q-card-actions align="between" class="text-weight-medium">
         <div class="text-subtitle1">Name:</div>
-        <div class="text-caption">Ovatheme</div>
+        <div class="text-caption">{{item.userId.name}}</div>
       </q-card-actions>
       <q-card-actions align="between" class="text-weight-medium">
         <div class="text-subtitle1">Email:</div>
-        <div class="text-caption">ovatheme@gmail.com</div>
+        <div class="text-caption">{{item.userId.email}}</div>
       </q-card-actions>
       <q-card-actions align="between" class="text-weight-medium">
         <div class="text-subtitle1">Phone:</div>
@@ -51,9 +51,7 @@
       <q-card-actions align="between" class="text-weight-medium">
         <div class="text-subtitle1">Description:</div>
         <div class="text-caption">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s
+         {{item.userId.description}}
         </div>
       </q-card-actions>
     </div>
@@ -61,10 +59,15 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
   // name: 'ComponentName',
-  setup() {
+  props: ["item"],
+  data() {
     return {};
+  },
+  created: function () {
+    this.moment = moment;
   },
 };
 </script>
