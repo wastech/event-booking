@@ -6,7 +6,7 @@
     <div class="text__section">
       <div class="header__text">
         <div class="text-h2 text-white ova_title q-mb-xl">
-          Phanxipang Tourist
+          {{ item.title }}
         </div>
         <q-breadcrumbs>
           <q-breadcrumbs-el label="Home" />
@@ -18,61 +18,28 @@
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12">
           <div class="bg-white q-pa-xl">
             <div class="carousel__section">
-              <q-carousel animated v-model="slide" arrows navigation infinite>
-                <q-carousel-slide
-                  :name="1"
-                  img-src="https://cdn.quasar.dev/img/mountains.jpg"
-                />
-                <q-carousel-slide
-                  :name="2"
-                  img-src="https://cdn.quasar.dev/img/parallax1.jpg"
-                />
-                <q-carousel-slide
-                  :name="3"
-                  img-src="https://cdn.quasar.dev/img/parallax2.jpg"
-                />
-                <q-carousel-slide
-                  :name="4"
-                  img-src="https://cdn.quasar.dev/img/quasar.jpg"
-                />
+              <q-carousel
+                animated
+                v-model="slide"
+                v-if="item.imageUrl"
+                arrows
+                navigation
+                infinite
+              >
+                <q-carousel-slide :name="1" :img-src="item.imageUrl.url" />
               </q-carousel>
             </div>
 
-            <div class=" ">
-              <div class="text-body1">
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry’s standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries, but also the leap into
-                electronic typesetting, remaining essentially unchanged. It was
-                popularised in the 1960s with the release of Letraset sheets
-                containing Lorem Ipsum passages, and more recently with desktop
-                <br />
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum. It was popularised in the 1960s with the release of
-                Letraset sheets containing Lorem Ipsum passages, and more
-                recently with desktop publishing software like Aldus PageMaker
-                including versions of Lorem Ipsum.It was popularised in the
-                1960s with the release of Letraset sheets c ublishing software
-                like Aldus PageMaker including versions of Lorem Ipsum.
-                publishing software like Aldus PageMaker including versions of
-                Lorem Ipsum. It was popularised in the 1960s with the release of
-                Letraset sheets containing Lorem Ipsum passages, and more
-                recently with desktop publishing software like Aldus PageMaker
-                including versions of Lorem Ipsum.It was popularised in the
-                1960s with the release of Letraset sheets containing Lorem Ipsum
-                passages, and more recently with desktop publishing software
-                like Aldus PageMaker including versions of Lorem Ipsum.
-              </div>
+            <div class="">
+              <div class="text-body1" v-html="item.description"></div>
             </div>
 
             <q-card-actions align="between" class="text-weight-medium">
               <div class="">
                 <span>
                   <q-icon name="local_offer" class="q-mr-sm" /> Tag:
-                  <a href="" class="q-mx-sm text-caption">phanxipang</a>
-                  <a href="" class="text-caption">tourist</a>
+                  <a href="" class="q-mx-sm text-caption" v-for="(tag, index) in item.tags" :key="index">{{tag}}</a>
+
                 </span>
               </div>
               <div class="">
@@ -86,8 +53,8 @@
           </div>
           <!-- tag section -->
           <div class="section">
-          <!-- import event tab -->
-          <event-tab/>
+            <!-- import event tab -->
+            <event-tab />
           </div>
         </div>
 
@@ -103,15 +70,33 @@
 import { ref } from "vue";
 import EventSide from "../components/EventSide.vue";
 import EventTab from "src/components/EventTab.vue";
+import postService from "../services/eventService";
 // import BackgrounHeader from "../components/BackgrounHeader.vue";
 export default {
   components: { EventSide, EventTab },
   // components: { BackgrounHeader },
   // name: 'PageName',
-  setup() {
+  data() {
     return {
-      slide: ref(1),
+      slide: 1,
+      id: this.$route.params.id,
+      item: {},
     };
+  },
+  methods: {
+    async getSinglePost() {
+      try {
+        await postService.showpost(this.id).then((response) => {
+          this.item = response.data.event;
+          console.log("this is event item", response.data.event);
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+  },
+  mounted() {
+    this.getSinglePost();
   },
 };
 </script>

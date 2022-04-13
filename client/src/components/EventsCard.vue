@@ -7,13 +7,15 @@
         :key="item.id"
       >
         <div class="my-card">
-          <q-img :src="item.image">
+          <q-img :src="item.imageUrl.url" v-if="item.imageUrl">
             <div class="absolute-full text-center image__text">
               <div class="icon">
                 <br />
                 <q-icon name="room" size="1.5em" />
               </div>
-              <div class="text-subtitle1 q-mt-md text-capitalize">liberty 22, area</div>
+              <div class="text-subtitle1 q-mt-md text-capitalize">
+                {{ item.address }}
+              </div>
             </div>
           </q-img>
 
@@ -25,13 +27,13 @@
               style="
                 top: 0;
                 left: 37%;
+                height: 70px;
 
                 background: #f53f7b;
                 transform: translateY(-50%);
               "
             >
-              DEC <br />
-              12,22
+              $ {{ item.silver_ticket }}
             </q-btn>
             <q-btn
               round
@@ -40,27 +42,41 @@
               style="
                 top: 0;
                 left: 37%;
-
                 background: #f53f7b;
                 transform: translateY(-50%);
               "
             >
-              44$
+              $ {{ item.gold_ticket }}
             </q-btn>
 
             <div class="text-h6 text-weight-medium text-center q-mt-md">
-              Phanxipang Tourist
+              <router-link
+                v-bind:to="{
+                  name: 'event',
+                  params: { id: item.id },
+                }"
+              >
+                {{ item.title }}</router-link
+              >
             </div>
             <div class="text-subtitle1 upcoming__text q-mt-sm">upcoming</div>
           </q-card-section>
 
           <q-card-section class="q-pt-none q-mb-md">
-            <div class="text-subtitle1 ellipsis-2-lines">
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit.  dddddddddddddddddMae...
-            </div>
+            <div
+              class="text-subtitle1 ellipsis-2-lines"
+              v-html="item.description"
+            ></div>
           </q-card-section>
           <div class="btn2 text-center">
-            <button class="button button4">Get Started</button>
+            <router-link
+              v-bind:to="{
+                name: 'event',
+                params: { id: item.id },
+              }"
+            >
+              <button class="button button4">Get Started</button>
+            </router-link>
           </div>
         </div>
       </div>
@@ -72,37 +88,17 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
-  // name: 'ComponentName',
+  name: "PageIndex",
+  props: ["items"],
   data() {
     return {
-      items: [
-        {
-          image:
-            "https://ovatheme.com/em4u/wp-content/uploads/2017/10/event_sport_1-copy.jpg",
-        },
-        {
-          image:
-            "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg",
-        },
-        {
-          image:
-            "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg",
-        },
-        {
-          image:
-            "https://ovatheme.com/em4u/wp-content/uploads/2017/10/event_sport_1-copy.jpg",
-        },
-        {
-          image:
-            "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg",
-        },
-        {
-          image:
-            "https://www.planetware.com/photos-large/F/france-paris-eiffel-tower.jpg",
-        },
-      ],
+      tags: [],
     };
+  },
+  created: function () {
+    this.moment = moment;
   },
 };
 </script>
@@ -180,10 +176,23 @@ export default {
   font-size: 14px;
   line-height: 24px;
 }
-.image__text{
+.image__text {
   display: none;
 }
-.my-card:hover .image__text{
+.my-card:hover .image__text {
   display: block;
+}
+a {
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 50px;
+  color: #000;
+  font-size: 14px;
+  border-bottom: none;
+  margin-top: 10px;
+  text-decoration: none;
+}
+a:hover {
+  color: #f53f7b;
 }
 </style>

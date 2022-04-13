@@ -16,7 +16,7 @@
       <events-form />
     </div>
     <div class="event__card">
-      <events-card />
+      <events-card :items="items" />
     </div>
   </q-page>
 </template>
@@ -24,13 +24,33 @@
 <script>
 import EventsCard from "../components/EventsCard.vue";
 import EventsForm from "../components/EventsForm.vue";
-
+import postService from "../services/eventService";
 export default {
   components: { EventsCard, EventsForm },
 
   // name: 'ComponentName',
-  setup() {
-    return {};
+  data() {
+    return {
+      items: [],
+    };
+  },
+  methods: {
+    async queryindex() {
+      try {
+        await postService.getPosts().then((response) => {
+          this.items = response.data.data;
+          console.log(this.items);
+        });
+      } catch (err) {
+        console.log(err.response);
+      }
+    },
+    viewPost(item_id) {
+      this.$router.push({ name: "blog", params: { id: item_id } });
+    },
+  },
+  async mounted() {
+    this.queryindex();
   },
 };
 </script>

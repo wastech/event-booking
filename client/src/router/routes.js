@@ -1,6 +1,6 @@
 const routes = [
   { path: "/", component: () => import("pages/Index.vue") },
-  { path: "/event", component: () => import("pages/event.vue") },
+
   { path: "/events", component: () => import("pages/events.vue") },
   { path: "/blogs", component: () => import("pages/blogs.vue") },
 
@@ -9,6 +9,11 @@ const routes = [
     component: () => import("pages/blogDetail.vue"),
     name: "blog",
     props: true,
+  },
+  {
+    path: "/event/:id",
+    name: "event",
+    component: () => import("pages/event.vue"),
   },
   {
     path: "/category/:id",

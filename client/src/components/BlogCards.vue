@@ -88,15 +88,6 @@ export default {
   created: function () {
     this.moment = moment;
   },
-  // methods: {
-  //   viewPost(item_id) {
-  //     this.$router.push({ name: "blog", params: { id: item_id } });
-  //   },
-
-  //   viewCat(item_id) {
-  //     this.$router.push({ name: "category", params: { id: item_id } });
-  //   },
-  // },
 };
 </script>
 <style scoped>
