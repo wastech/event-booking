@@ -15,7 +15,7 @@
         </q-breadcrumbs>
       </div>
       <div class="row text__row q-col-gutter-lg">
-        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-xs-12">
           <div class="bg-white q-pa-xl">
             <div class="carousel__section">
               <q-carousel
@@ -59,7 +59,7 @@
           <!-- tag section -->
           <div class="section">
             <!-- import event tab -->
-            <event-tab />
+            <event-tab  :item="item"/>
           </div>
         </div>
 
@@ -72,15 +72,13 @@
 </template>
 
 <script>
-import moment from "moment";
 import EventSide from "../components/EventSide.vue";
 import EventTab from "src/components/EventTab.vue";
 import postService from "../services/eventService";
-// import BackgrounHeader from "../components/BackgrounHeader.vue";
+
 export default {
   components: { EventSide, EventTab },
-  // components: { BackgrounHeader },
-  // name: 'PageName',
+
   data() {
     return {
       slide: 1,

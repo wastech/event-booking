@@ -1,19 +1,18 @@
 <template>
   <div>
-    <div class="row q-col-gutter-sm">
+    <div class="row q-col-gutter-sm" v-if="item.userId">
       <div
         class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12"
-        v-for="item in items"
-        :key="item.id"
+
       >
         <div class="speaker__section">
           <div class="image">
-            <img :src="item.image" alt="" />
+            <img :src="item.userId.avatar.url" alt="ite" />
           </div>
 
           <div class="text text-center">
-            <div class="text-h6 .title">Big Smile</div>
-            <div class="text-subtitle2 job">Accountant</div>
+            <div class="text-h6 .title">{{item.userId.name}}</div>
+            <div class="text-subtitle2 job">{{item.userId.emTitle}}</div>
           </div>
 
           <q-card-actions align="around" class="q-mx-sm icon">
@@ -31,22 +30,10 @@
 <script>
 export default {
   // name: 'ComponentName',
+  props:['item'],
   data() {
     return {
-      items: [
-        {
-          image:
-            "https://ovatheme.com/em4u/wp-content/uploads/2017/09/speaker6-min.jpg",
-        },
-        {
-          image:
-            "https://ovatheme.com/em4u/wp-content/uploads/2017/10/speaker4-min-1.jpg",
-        },
-        {
-          image:
-            "https://ovatheme.com/em4u/wp-content/uploads/2017/09/speaker6-min.jpg",
-        },
-      ],
+
     };
   },
 };

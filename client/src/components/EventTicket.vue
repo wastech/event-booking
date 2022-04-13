@@ -3,7 +3,7 @@
     <div class="row q-col-gutter-lg">
       <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4 col-xs-12">
         <div class="card__section">
-          <q-btn color="black" class="full-width" label="free ticket" />
+          <q-btn color="black" class="full-width" label="Free Package" />
           <div class="top q-pa-lg">
             <div class="section text-center">
               <div class="icon q-my-sm">
@@ -14,9 +14,11 @@
               </div>
               <div class="price">
                 <div class="text-subtitle1 text-white text-bold q-my-sm">
-                  $10
+                  {{ item.free_ticket }}
                 </div>
-                <div class="text-caption text-white">820 Tickets</div>
+                <div class="text-caption text-white">
+                  {{ item.number_of_free_ticket }} Tickets
+                </div>
               </div>
             </div>
           </div>
@@ -40,10 +42,103 @@
               </div>
             </q-card-actions>
           </div>
- <div class="btn text-center q-my-md">
-     <q-btn outline color="primary" label="Register Event" />
- </div>
-
+          <div class="btn text-center q-my-md">
+            <q-btn outline color="primary" label="Register Event" />
+          </div>
+        </div>
+      </div>
+<!-- Silver Ticket section -->
+      <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4 col-xs-12">
+        <div class="card__section">
+          <q-btn color="black" class="full-width" label="Silver Ticket" />
+          <div class="top q-pa-lg">
+            <div class="section text-center">
+              <div class="icon q-my-sm">
+                <img
+                  src="https://ovatheme.com/em4u/wp-content/plugins/ova-events-manager/assets/img/price_icon.png"
+                  alt=""
+                />
+              </div>
+              <div class="price">
+                <div class="text-subtitle1 text-white text-bold q-my-sm">
+                 $ {{ item.silver_ticket }}
+                </div>
+                <div class="text-caption text-white">
+                  {{ item.number_of_silver_ticket }} Tickets
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="q-my-lg">
+            <q-card-actions>
+              <div class="q-my-sm">
+                <q-icon name="trending_flat" class="q-ml-md q-mr-xl" /> Regular
+                Seating
+              </div>
+              <div class="q-my-sm">
+                <q-icon name="trending_flat" class="q-ml-md q-mr-xl" /> Free
+                Snacks
+              </div>
+              <div class="q-my-sm">
+                <q-icon name="trending_flat" class="q-ml-md q-mr-xl" /> Regular
+                Seating
+              </div>
+              <div>
+                <q-icon name="trending_flat" class="q-ml-md q-mr-xl" /> Custom
+                Badge
+              </div>
+            </q-card-actions>
+          </div>
+          <div class="btn text-center q-my-md">
+            <q-btn outline color="primary" label="Register Event" />
+          </div>
+        </div>
+      </div>
+<!-- Gold Ticket section -->
+      <div class="col-xl-4 col-lg-4 col-sm-4 col-md-4 col-xs-12">
+        <div class="card__section">
+          <q-btn color="black" class="full-width" label="Gold Ticket" />
+          <div class="top q-pa-lg">
+            <div class="section text-center">
+              <div class="icon q-my-sm">
+                <img
+                  src="https://ovatheme.com/em4u/wp-content/plugins/ova-events-manager/assets/img/price_icon.png"
+                  alt=""
+                />
+              </div>
+              <div class="price">
+                <div class="text-subtitle1 text-white text-bold q-my-sm">
+                  $ {{ item.gold_ticket }}
+                </div>
+                <div class="text-caption text-white">
+                  {{ item.number_of_gold_ticket }} Tickets
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="q-my-lg">
+            <q-card-actions>
+              <div class="q-my-sm">
+                <q-icon name="trending_flat" class="q-ml-md q-mr-xl" /> Regular
+                Seating
+              </div>
+              <div class="q-my-sm">
+                <q-icon name="trending_flat" class="q-ml-md q-mr-xl" /> Free
+                Snacks
+              </div>
+              <div class="q-my-sm">
+                <q-icon name="trending_flat" class="q-ml-md q-mr-xl" /> Regular
+                Seating
+              </div>
+              <div>
+                <q-icon name="trending_flat" class="q-ml-md q-mr-xl" /> Custom
+                Badge
+              </div>
+            </q-card-actions>
+          </div>
+          <div class="btn text-center q-my-md">
+            <q-btn outline color="primary" label="Register Event" />
+          </div>
         </div>
       </div>
     </div>
@@ -53,6 +148,7 @@
 <script>
 export default {
   // name: 'ComponentName',
+  props: ["item"],
   setup() {
     return {};
   },

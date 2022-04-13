@@ -20,11 +20,11 @@
 
         <q-tab-panels v-model="tab" animated>
           <q-tab-panel name="SPEAKER">
-            <event-speaker />
+            <event-speaker :item="item" />
           </q-tab-panel>
 
           <q-tab-panel name="TICKET & PRICE">
-            <event-ticket />
+            <event-ticket :item="item"  />
           </q-tab-panel>
 
           <q-tab-panel name="COMMENTS">
@@ -48,6 +48,7 @@ import EventComment from "./EventComment.vue";
 
 export default {
   components: { EventTicket, EventContact, EventSpeaker, EventComment },
+    props:['item'],
   setup() {
     return {
       tab: ref("SPEAKER"),
