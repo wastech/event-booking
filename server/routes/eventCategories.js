@@ -14,9 +14,10 @@ const router = express.Router();
 const advancedResults = require("../middleware/advancedResults");
 const { protect, authorize } = require("../middleware/auth");
 
-router.use(protect);
-
-router.route("/").get(getCategories).post(authorize("admin"), createCategory);
+router
+  .route("/")
+  .get(getCategories)
+  .post(protect, authorize("admin"), createCategory);
 
 router
   .route("/:id")

@@ -24,4 +24,8 @@ router
   .put(authorize("admin"), updateCategory)
   .delete(authorize("admin"), deleteCategory);
 
+
+
+  
+
 module.exports = router;

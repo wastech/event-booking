@@ -35,9 +35,9 @@ router
 //   .route("/:slug")
 //   .get(getPost)
 
-// router.route("/category/:postcategoryId").get(getCategories);
-// router.route("/related/:postcategoryId").get(getRelated);
-// router.route("/userpost/:userId").get(getUserPosts);
-// router.route("/tags/:tagsId").get(getTags);
+router.route("/category/:eventcategoryId").get(getCategories);
+router.route("/related/:eventcategoryId").get(getRelated);
+router.route("/userpost/:userId").get(getUserPosts);
+router.route("/tags/:tagsId").get(getTags);
 
 module.exports = router;

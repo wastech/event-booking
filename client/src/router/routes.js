@@ -21,6 +21,12 @@ const routes = [
     name: "category",
     component: () => import("pages/category.vue"),
   },
+  {
+    path: "/eecategory/:id",
+
+    name: "ecategory",
+    component: () => import("pages/ecategory.vue"),
+  },
   { path: "/login", name: "login", component: () => import("pages/login.vue") },
   {
     path: "/register",

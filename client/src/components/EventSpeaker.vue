@@ -7,7 +7,7 @@
       >
         <div class="speaker__section">
           <div class="image">
-            <img :src="item.userId.avatar.url" alt="ite" />
+            <img :src="item.userId.avatar.url" alt="ite"/>
           </div>
 
           <div class="text text-center">

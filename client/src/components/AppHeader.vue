@@ -11,19 +11,24 @@
           Toolbar
         </q-toolbar-title>
         <q-space />
-<!--  v-model="tab" -->
+        <!--  v-model="tab" -->
         <q-tabs class="gt-sm" shrink>
           <q-route-tab exact name="Blog" to="/blogs" label="Blog" />
           <q-btn-dropdown stretch flat label="Categories">
             <q-list>
-              <q-item clickable v-close-popup> Folders </q-item>
-              <q-item clickable v-close-popup> Folders </q-item>
-              <q-item clickable v-close-popup> Folders </q-item>
-              <q-item clickable v-close-popup> Folders </q-item>
-              <q-item clickable v-close-popup> Folders </q-item>
+              <q-item clickable v-close-popup v-for="item in items" :key="item">
+                <router-link
+                  v-bind:to="{
+                    name: 'ecategory',
+                    params: { id: item._id },
+                  }"
+                >
+                  {{ item.title }}</router-link
+                >
+              </q-item>
             </q-list>
           </q-btn-dropdown>
-<!-- name="tab2"  -->
+          <!-- name="tab2"  -->
           <q-tab @click="$router.push('/events')" label="event" />
           <q-btn-dropdown stretch flat label="Location">
             <q-list>
@@ -109,12 +114,28 @@
 </template>
 
 <script>
+import categoriesService from "../services/eventCategoriesService";
 export default {
   // name: 'ComponentName',
   data() {
     return {
       left: false,
+      items: [],
     };
+  },
+  methods: {
+    async getPosts() {
+      try {
+        await categoriesService.getCategories().then((response) => {
+          this.items = response.data.data;
+        });
+      } catch (err) {
+        console.log(err.response);
+      }
+    },
+  },
+  async mounted() {
+    this.getPosts();
   },
 };
 </script>

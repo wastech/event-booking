@@ -8,10 +8,10 @@
         <div class="text-h2 text-white ova_title q-mb-xl">
           {{ item.title }}
         </div>
-        <q-breadcrumbs>
+        <q-breadcrumbs v-if="item.eventcategoryId">
           <q-breadcrumbs-el label="Home" />
           <q-breadcrumbs-el label="Event" />
-          <q-breadcrumbs-el label="Phanxipang Tourist" />
+          <q-breadcrumbs-el :label="item.eventcategoryId.title" />
         </q-breadcrumbs>
       </div>
       <div class="row text__row q-col-gutter-lg">
