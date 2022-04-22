@@ -121,7 +121,8 @@ exports.getUserPosts = asyncHandler(async (req, res, next) => {
 
 // Get single post details   =>   /api/v1/post/:categoryId
 exports.getTags = asyncHandler(async (req, res, next) => {
-  const event = await Event.find({ tags: req.params.tags.split(",") });
+   const { tags } = req.params;
+  const event = await Event.find({ tags: { $all: tags } });
   // .populate("userId")
   // .populate("categoryId");
 

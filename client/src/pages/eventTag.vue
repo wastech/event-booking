@@ -6,8 +6,12 @@
     <div class="text__section">
       <div class="header__text">
         <div class="text-h2 text-white ova_title q-mb-xl">
-          {{ category }} Category
+          {{ this.$route.params.id }}
         </div>
+        <q-breadcrumbs class="text-white q-my-md">
+          <q-breadcrumbs-el label="Home" />
+          <q-breadcrumbs-el :label="this.$route.params.id" />
+        </q-breadcrumbs>
       </div>
     </div>
     <div class="event__form">
@@ -48,6 +52,7 @@ export default {
       items: [],
       id: this.$route.params.id,
       category: "",
+      tags: "",
     };
   },
   methods: {
@@ -55,14 +60,9 @@ export default {
       try {
         await postService.getTags(this.id).then((response) => {
           this.items = response.data.event;
-          // this.category = response.data.categories[0].eventcategoryId.title;
-          console.log(
-            "testing",
-
-          );
         });
       } catch (err) {
-         console.log(err.response);
+        console.log(err.response);
       }
     },
   },
