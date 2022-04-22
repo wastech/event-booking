@@ -40,7 +40,7 @@ export default {
   methods: {
     async queryindex() {
       try {
-        await postService.getPosts().then((response) => {
+        await postService.getEvents().then((response) => {
           this.items = response.data.data;
         });
       } catch (err) {

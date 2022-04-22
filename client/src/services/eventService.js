@@ -5,7 +5,7 @@ export default {
   createPost(post) {
     return api.post("events", post);
   },
-  getPosts() {
+  getEvents() {
     return api.get("events");
   },
   showpost(postId) {

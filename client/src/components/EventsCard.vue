@@ -26,8 +26,6 @@
               class="absolute text-white show q-mb-lg"
               style="
                 top: 0;
-                left: 37%;
-                height: 70px;
 
                 background: #f53f7b;
                 transform: translateY(-50%);
@@ -37,11 +35,11 @@
             </q-btn>
             <q-btn
               round
-              padding="lg"
+           
               class="absolute text-white q-mb-lg hide"
               style="
                 top: 0;
-                left: 37%;
+
                 background: #f53f7b;
                 transform: translateY(-50%);
               "
@@ -81,7 +79,6 @@
         </div>
       </div>
     </div>
-   
   </div>
 </template>
 
@@ -192,5 +189,23 @@ a {
 }
 a:hover {
   color: #f53f7b;
+}
+.q-btn {
+  width: 80px;
+  height: 80px;
+  word-wrap: break-word;
+  text-align: center;
+  margin: 0 auto;
+  margin-left: auto;
+  border-radius: 100%;
+  color: #fff;
+  padding-top: 24px;
+  background: #f53f7b;
+  background-color: rgb(245, 63, 123);
+  bottom: -35px;
+  left: 50%;
+  margin-left: -35px;
+  z-index: 1;
+  position: absolute;
 }
 </style>

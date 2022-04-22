@@ -1,27 +1,22 @@
 <template>
-  <div
-    class="main"
-    v-bind:style="
-      $q.screen.lt.sm ? { marginTop: '10em' } : { marginTop: '20em' }
-    "
-  >
+  <div class="main">
     <div class="card__section">
       <div class="row q-col-gutter-lg">
         <div
           class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-xs-12"
-          v-for="item in items"
-          :key="item"
+          v-for="post in posts"
+          :key="post"
         >
           <div class="article__section">
-            <q-img :src="item.imageUrl.url" class="image" v-if="item.imageUrl">
+            <q-img :src="post.imageUrl.url" class="image" v-if="post.imageUrl">
               <div class="bg-none transparent">
                 <q-btn
                   color="white"
                   text-color="black"
-                  :label="item.postcategoryId.title"
+                  :label="post.postcategoryId.title"
                   :to="{
                     name: 'category',
-                    params: { id: item.postcategoryId._id },
+                    params: { id: post.postcategoryId._id },
                   }"
                   class="q-mt-lg"
                 />
@@ -31,7 +26,7 @@
               <q-card-actions align="between">
                 <div class="">
                   <q-icon name="calendar_today" />
-                  <span>{{ moment(item.createdAt).fromNow() }}</span>
+                  <span>{{ moment(post.createdAt).fromNow() }}</span>
                 </div>
                 <div class="">
                   <q-icon name="message" /> <span>Comment off</span>
@@ -54,17 +49,24 @@
                 <router-link
                   v-bind:to="{
                     name: 'blog',
-                    params: { id: item.id },
+                    params: { id: post.id },
                   }"
                 >
-                  {{ item.title }}</router-link
+                  {{ post.title }}</router-link
                 >
               </div>
               <div class="ellipsis-3-lines">
-                <div class="text-body2" v-html="item.description"></div>
+                <div class="text-body2" v-html="post.description"></div>
               </div>
               <div class="read__more q-mt-lg q-pb-lg cursor-pointer">
-                <a> Read More </a>
+                <router-link
+                  v-bind:to="{
+                    name: 'blog',
+                    params: { id: post.id },
+                  }"
+                >
+                  Read More
+                </router-link>
               </div>
             </q-card-section>
           </div>
@@ -77,8 +79,8 @@
 <script>
 import moment from "moment";
 export default {
-  name: "PageIndex",
-  props: ["items"],
+  name: "post",
+  props: ["posts"],
   data() {
     return {
       tags: [],

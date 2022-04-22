@@ -12,21 +12,28 @@
       </div>
     </div>
 
-    <div class="event__card">
-      <event-c-ard />
+    <div class="event__card" v-bind:style="$q.screen.lt.sm ? { width: '90%' } : { width: '75%' }">
+      <events-card :items="items" />
     </div>
 
     <div class="q-pa-md text-center q-gutter-sm q-my-xl">
-      <q-btn flat  to="/events" class="btn" icon="chevron_right" label="ALL Events" no-caps />
+      <q-btn
+        flat
+        to="/events"
+        class="btn"
+        icon="chevron_right"
+        label="ALL Events"
+        no-caps
+      />
     </div>
   </div>
 </template>
 
 <script>
-import EventCArd from "./EventCArd.vue";
+import EventsCard from "../components/EventsCard.vue";
 export default {
-  components: { EventCArd },
-  // name: 'ComponentName',
+  components: { EventsCard },
+  props: ["items"],
   setup() {
     return {};
   },
@@ -40,9 +47,9 @@ span {
   border-bottom: 3px solid #f53f7b;
   margin-top: 2em;
 }
-.row {
+.event__card {
   margin: 0 auto;
-  width: 75%;
+
 }
 .my-card {
   width: 100%;

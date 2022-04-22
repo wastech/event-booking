@@ -11,11 +11,15 @@
 
     <div
       class="blog__section"
-      v-bind:style="$q.screen.lt.sm ? { width: '90%' } : { width: '65%' }"
+      v-bind:style="
+        $q.screen.lt.sm
+          ? { width: '90%', marginTop: '10em' }
+          : { width: '65%', marginTop: '20em' }
+      "
     >
       <div class="row q-col-gutter-lg">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <blog-cards :items="items" />
+          <blog-cards :posts="posts" />
         </div>
       </div>
     </div>
@@ -29,14 +33,14 @@ export default {
   components: { BlogCards },
   data() {
     return {
-      items: [],
+      posts: [],
     };
   },
   methods: {
     async queryindex() {
       try {
         await postService.getPosts().then((response) => {
-          this.items = response.data.data;
+          this.posts = response.data.data;
         });
       } catch (err) {
         console.log(err.response);
