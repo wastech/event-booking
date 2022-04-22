@@ -13,7 +13,7 @@
         <q-space />
         <!--  v-model="tab" -->
         <q-tabs class="gt-sm" shrink>
-          <q-route-tab exact name="Blog" to="/blogs" label="Blog" />
+          <q-route-tab exact name="Blog" to="/blogs" class="text-white" label="Blog" />
           <q-btn-dropdown stretch flat label="Categories">
             <q-list>
               <q-item clickable v-close-popup v-for="item in items" :key="item">
@@ -139,3 +139,17 @@ export default {
   },
 };
 </script>
+<style scoped>
+a {
+  text-transform: uppercase;
+
+  color: #000;
+  font-size: 14px;
+  border-bottom: none;
+  margin-top: 10px;
+  text-decoration: none;
+}
+a:hover {
+  color: #f53f7b;
+}
+</style>

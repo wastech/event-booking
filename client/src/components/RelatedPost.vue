@@ -48,7 +48,6 @@ export default {
           .getRelated(newProps.postcategoryId._id)
           .then((response) => {
             this.items = response.data.categories;
-            console.log("realted data", this.items);
           });
       },
       deep: true,

@@ -132,15 +132,21 @@
             <!--    -->
             <q-select
               filled
-              :options="optionsT"
+              :options="[
+                'business',
+                'course business',
+                'people',
+                'course theme',
+              ]"
               v-model="tags"
+              use-input
+              use-chips
+              multiple
+              :model-value="tags"
               emit-value
               map-options
-              option-value="_id"
-              option-label="title"
-              multiple
-              :rules="[(val) => !!val || 'Field is required']"
-              use-chips
+              stack-label
+              :rules="[(v) => (v && v.length >= 1) || 'Select at least 1 tag.']"
               label="Tags"
             />
           </div>
@@ -258,12 +264,11 @@ export default {
       title: "",
       description: "",
       price: "",
-      tags: [],
+      tags: null,
       eventcategoryId: "",
       venue: "",
       options: [],
       file: "",
-      optionsT: [" business ", "	course business ", "course theme "],
       free_ticket: "Free",
       silver_ticket: 0,
       gold_ticket: 0,
@@ -281,7 +286,6 @@ export default {
       try {
         await postCategoriesService.getCategories().then((response) => {
           this.options = response.data.data;
-          console.log("this is  cat", response.data);
         });
       } catch (err) {
         console.log(err.response);
@@ -297,7 +301,10 @@ export default {
         formData.append("title", this.title);
         formData.append("description", this.description);
         formData.append("eventcategoryId", this.eventcategoryId);
+
         formData.append("tags", this.tags);
+
+        // formData.append("tags", this.tags);
         formData.append("free_ticket", this.free_ticket);
         formData.append("number_of_free_ticket", this.number_of_free_ticket);
         formData.append("silver_ticket", this.silver_ticket);
@@ -312,8 +319,7 @@ export default {
         formData.append("room", this.room);
         formData.append("venue", this.venue);
         formData.append("address", this.address);
-
-        console.log("this is formdata", formData);
+  
         await postService.createPost(formData).then((response) => {
           this.$q.notify({
             type: "positive",

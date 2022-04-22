@@ -27,6 +27,12 @@ const routes = [
     name: "ecategory",
     component: () => import("pages/ecategory.vue"),
   },
+  {
+    path: "/eventTag/:id",
+
+    name: "eventtag",
+    component: () => import("pages/eventTag.vue"),
+  },
   { path: "/login", name: "login", component: () => import("pages/login.vue") },
   {
     path: "/register",

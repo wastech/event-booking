@@ -81,9 +81,7 @@
         </div>
       </div>
     </div>
-    <div class="q-pa-lg flex flex-center q-mt-xl">
-      <q-pagination v-model="current" :max="5" direction-links />
-    </div>
+   
   </div>
 </template>
 

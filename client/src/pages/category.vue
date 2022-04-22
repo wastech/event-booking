@@ -17,12 +17,6 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <blog-cards :items="items" />
         </div>
-        <!--
-      right side section -->
-
-        <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-xs-12">
-          <recent-posts />
-        </div> -->
       </div>
     </div>
   </q-page>
@@ -31,10 +25,8 @@
 <script>
 import BlogCards from "../components/BlogCards.vue";
 import postService from "../services/postService";
-// import RecentPosts from "../components/RecentPosts.vue";
 export default {
   components: { BlogCards },
-  // name: 'ComponentName',
   data() {
     return {
       items: [],
@@ -48,10 +40,9 @@ export default {
         await postService.getCategories(this.id).then((response) => {
           this.items = response.data.categories;
           this.category = response.data.categories[0].postcategoryId.title;
-          console.log(response.data.categories);
         });
       } catch (err) {
-        // console.log(err.response);
+        console.log(err.response);
       }
     },
   },

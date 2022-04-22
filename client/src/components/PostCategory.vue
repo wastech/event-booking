@@ -122,7 +122,6 @@ export default {
       try {
         await postCategoriesService.getCategories().then((response) => {
           this.data = response.data.data;
-          console.log("this is data", response.data)
         });
       } catch (err) {
         console.log(err);

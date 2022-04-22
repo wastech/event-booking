@@ -177,7 +177,6 @@ export default {
       try {
         await postCategoriesService.getCategories().then((response) => {
           this.options = response.data.data;
-          console.log("this is ", response.data);
         });
       } catch (err) {
         console.log(err.response);
@@ -187,7 +186,6 @@ export default {
       try {
         await tagService.getTags().then((response) => {
           this.optionsT = response.data.data;
-          console.log("this is ", response.data);
         });
       } catch (err) {
         console.log(err.response);
@@ -204,7 +202,6 @@ export default {
         formData.append("description", this.description);
         formData.append("postcategoryId", this.categoryId);
         formData.append("tags", this.tags);
-        console.log("this is formdata", formData);
         await postService.createPost(formData).then((response) => {
           this.$q.notify({
             type: "positive",

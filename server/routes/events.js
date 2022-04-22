@@ -38,6 +38,7 @@ router
 router.route("/category/:eventcategoryId").get(getCategories);
 router.route("/related/:eventcategoryId").get(getRelated);
 router.route("/userpost/:userId").get(getUserPosts);
-router.route("/tags/:tagsId").get(getTags);
+router.route("/tags/:tags").get(getTags);
+
 
 module.exports = router;

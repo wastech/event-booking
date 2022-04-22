@@ -11,16 +11,17 @@ exports.createEvent = asyncHandler(async (req, res, next) => {
     resource_type: "auto",
   });
 
-  let event = new Event({
+  const tags = req.body.tags.replace(/\s/g, "").split(",");
+
+  let event = await Event.create({
     ...req.body,
+    tags,
     userId: req.user.id,
     imageUrl: {
       public_id: result.public_id,
       url: result.secure_url,
     },
   });
-
-  await event.save();
 
   res.status(200).json({ success: true, data: event });
 });
@@ -34,11 +35,9 @@ exports.getEvents = asyncHandler(async (req, res, next) => {
     Event.find({})
       .populate("userId", "name avatar")
       .populate("eventcategoryId", "title")
-      // .populate("tags")
       .sort("-createdAt "),
     req.query
   )
-
     .search()
     .filter();
   let events = await apiFeatures.query;
@@ -74,8 +73,6 @@ exports.getEvent = asyncHandler(async (req, res, next) => {
 
 // Get  post categories   =>   /api/v1/post/:categoryId
 exports.getCategories = asyncHandler(async (req, res, next) => {
-  console.log(req.param);
-
   const categories = await Event.find({
     eventcategoryId: req.params.eventcategoryId,
   })
@@ -98,8 +95,6 @@ exports.getRelated = asyncHandler(async (req, res, next) => {
   })
     .populate("userId")
     .populate("eventcategoryId");
-
-  console.log("related", categories);
   if (!categories) {
     return next(new ErrorResponse("category not found", 404));
   }
@@ -126,16 +121,16 @@ exports.getUserPosts = asyncHandler(async (req, res, next) => {
 
 // Get single post details   =>   /api/v1/post/:categoryId
 exports.getTags = asyncHandler(async (req, res, next) => {
-  const tags = await Event.find({ tags: req.params.tagsId })
-    .populate("userId")
-    .populate("categoryId");
+  const event = await Event.find({ tags: req.params.tags.split(",") });
+  // .populate("userId")
+  // .populate("categoryId");
 
-  if (!tags) {
+  if (!event) {
     return next(new ErrorResponse("category not found", 404));
   }
   res.status(200).json({
     success: true,
-    tags,
+    event,
   });
 });
 

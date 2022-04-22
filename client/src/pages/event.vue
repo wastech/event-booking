@@ -8,10 +8,10 @@
         <div class="text-h2 text-white ova_title q-mb-xl">
           {{ item.title }}
         </div>
-        <q-breadcrumbs v-if="item.eventcategoryId">
+        <q-breadcrumbs>
           <q-breadcrumbs-el label="Home" />
           <q-breadcrumbs-el label="Event" />
-          <q-breadcrumbs-el :label="item.eventcategoryId.title" />
+          <q-breadcrumbs-el :label="item.title" />
         </q-breadcrumbs>
       </div>
       <div class="row text__row q-col-gutter-lg">
@@ -38,13 +38,19 @@
               <div class="">
                 <span>
                   <q-icon name="local_offer" class="q-mr-sm" /> Tag:
-                  <a
-                    href=""
-                    class="q-mx-sm text-caption"
-                    v-for="(tag, index) in item.tags"
-                    :key="index"
-                    >{{ tag }}</a
-                  >
+                  <span>
+                    <router-link
+                      class="q-mx-sm text-caption"
+                      v-for="(tag, index) in item.tags"
+                      :key="index"
+                      v-bind:to="{
+                        name: 'eventtag',
+                        params: { id: tag },
+                      }"
+                      v-html="tag"
+                    >
+                    </router-link>
+                  </span>
                 </span>
               </div>
               <div class="">
@@ -59,7 +65,7 @@
           <!-- tag section -->
           <div class="section">
             <!-- import event tab -->
-            <event-tab  :item="item"/>
+            <event-tab :item="item" />
           </div>
         </div>
 
@@ -91,7 +97,6 @@ export default {
       try {
         await postService.showpost(this.id).then((response) => {
           this.item = response.data.event;
-          console.log("this is event item", response.data.event);
         });
       } catch (err) {
         console.log(err);

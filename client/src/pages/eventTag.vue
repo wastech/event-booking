@@ -5,21 +5,34 @@
     </div>
     <div class="text__section">
       <div class="header__text">
-        <div class="text-h2 text-white ova_title q-mb-xl">Events</div>
-        <q-breadcrumbs>
-          <q-breadcrumbs-el label="Home" />
-          <q-breadcrumbs-el label="Event" />
-        </q-breadcrumbs>
+        <div class="text-h2 text-white ova_title q-mb-xl">
+          {{ category }} Category
+        </div>
       </div>
     </div>
     <div class="event__form">
       <events-form />
     </div>
-    <div class="event__card">
-      <events-card :items="items" />
-    </div>
-     <div class="q-pa-lg flex flex-center q-mt-xl">
-      <q-pagination v-model="current" :max="5" direction-links />
+    <q-banner
+      dense
+      inline-actions
+      class="text-white bg-red q-pa-xl q-ma-xl"
+      v-if="items.length <= 0"
+    >
+      We're currently working on adding more data to this searched category
+    </q-banner>
+    <div
+      class="blog__section"
+      v-bind:style="$q.screen.lt.sm ? { width: '90%' } : { width: '65%' }"
+    >
+      <div class="row q-col-gutter-lg">
+        <div
+          class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+          v-if="items.length > 0"
+        >
+          <events-card :items="items" />
+        </div>
+      </div>
     </div>
   </q-page>
 </template>
@@ -30,29 +43,31 @@ import EventsForm from "../components/EventsForm.vue";
 import postService from "../services/eventService";
 export default {
   components: { EventsCard, EventsForm },
-
-  // name: 'ComponentName',
   data() {
     return {
       items: [],
+      id: this.$route.params.id,
+      category: "",
     };
   },
   methods: {
-    async queryindex() {
+    async getPosts() {
       try {
-        await postService.getPosts().then((response) => {
-          this.items = response.data.data;
+        await postService.getTags(this.id).then((response) => {
+          this.items = response.data.event;
+          // this.category = response.data.categories[0].eventcategoryId.title;
+          console.log(
+            "testing",
+
+          );
         });
       } catch (err) {
-        console.log(err.response);
+         console.log(err.response);
       }
-    },
-    viewPost(item_id) {
-      this.$router.push({ name: "blog", params: { id: item_id } });
     },
   },
   async mounted() {
-    this.queryindex();
+    this.getPosts();
   },
 };
 </script>
@@ -87,12 +102,8 @@ export default {
 
   z-index: 2;
 }
-.event__card {
-  width: 65% !important;
+.blog__section {
   margin: 0 auto;
-}
-.header__text {
-  color: white;
 }
 .ova_title {
   font-size: 70px;
@@ -101,5 +112,10 @@ export default {
   margin-top: 0;
   color: #fff;
   line-height: 80px;
+}
+.q-banner {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
 }
 </style>

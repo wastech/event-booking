@@ -5,47 +5,49 @@
     </div>
     <div class="text__section">
       <div class="header__text">
-        <div class="text-h2 text-white ova_title q-mb-xl">{{category}} Category</div>
+        <div class="text-h2 text-white ova_title q-mb-xl">
+          {{ category }} Category
+        </div>
       </div>
     </div>
- <div class="event__form">
-     <events-form/>
+    <div class="event__form">
+      <events-form />
     </div>
+    <q-banner
+      dense
+      inline-actions
+      class="text-white bg-red q-pa-xl q-ma-xl"
+      v-if="items.length <= 0"
+    >
+      We're currently working on adding more data to this searched category
+    </q-banner>
     <div
       class="blog__section"
       v-bind:style="$q.screen.lt.sm ? { width: '90%' } : { width: '65%' }"
     >
       <div class="row q-col-gutter-lg">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <!-- <blog-cards :items="items" /> -->
-          <events-card :items="items"/>
-          <!--     <events-card :items="items" /> -->
+        <div
+          class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12"
+          v-if="items.length > 0"
+        >
+          <events-card :items="items" />
         </div>
-        <!--
-      right side section -->
-
-        <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-5 col-xs-12">
-          <recent-posts />
-        </div> -->
       </div>
     </div>
   </q-page>
 </template>
 
 <script>
-// import BlogCards from "../components/BlogCards.vue";
-import EventsCard from '../components/EventsCard.vue';
-import EventsForm from '../components/EventsForm.vue';
+import EventsCard from "../components/EventsCard.vue";
+import EventsForm from "../components/EventsForm.vue";
 import postService from "../services/eventService";
-// import RecentPosts from "../components/RecentPosts.vue";
 export default {
-  components: {  EventsCard, EventsForm },
-  // name: 'ComponentName',
+  components: { EventsCard, EventsForm },
   data() {
     return {
       items: [],
       id: this.$route.params.id,
-      category:''
+      category: "",
     };
   },
   methods: {
@@ -53,11 +55,14 @@ export default {
       try {
         await postService.getCategories(this.id).then((response) => {
           this.items = response.data.categories;
-         this.category = response.data.categories[0].eventcategoryId.title;
-          console.log("testing", response.data.categories[0].eventcategoryId.title);
+          this.category = response.data.categories[0].eventcategoryId.title;
+          console.log(
+            "testing",
+            response.data.categories[0].eventcategoryId.title
+          );
         });
       } catch (err) {
-        // console.log(err.response);
+         console.log(err.response);
       }
     },
   },
@@ -107,5 +112,10 @@ export default {
   margin-top: 0;
   color: #fff;
   line-height: 80px;
+}
+.q-banner {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
 }
 </style>

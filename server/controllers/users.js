@@ -15,7 +15,6 @@ exports.getUsers = asyncHandler(async (req, res, next) => {
 // @route     GET /api/v1/auth/users/:id
 // @access    Private/Admin
 exports.getUser = asyncHandler(async (req, res, next) => {
-  console.log("test", req.params.id);
   const user = await User.findById(req.params.id).populate({
     path: "postId",
   });

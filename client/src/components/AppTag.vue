@@ -127,7 +127,6 @@ export default {
       try {
         await tagService.getTags().then((response) => {
           this.data = response.data.data;
-          console.log("this is data", response.data);
         });
       } catch (err) {
         console.log(err);

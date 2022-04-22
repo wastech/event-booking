@@ -65,7 +65,7 @@
               size="sm"
             />
           </td>
-       
+
         </tr>
       </tbody>
     </q-markup-table>
@@ -86,7 +86,6 @@ export default {
       try {
         await postService.getPosts().then((response) => {
           this.items = response.data.data;
-          console.log("this is ", this.items);
         });
       } catch (err) {
         console.log(err.response);

@@ -41,7 +41,7 @@ const EventSchema = new Schema(
       default: 0.0,
     },
 
-    tags: [ String ],
+    tags: [{ type: String, required: true }],
     slug: {
       type: String,
       slug: "title",

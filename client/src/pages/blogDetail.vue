@@ -8,13 +8,6 @@
         <div class="text-h2 text-white ova_title q-mb-xl">
           {{ item.title }}
         </div>
-        <!-- <q-breadcrumbs>
-          <q-breadcrumbs-el label="Home" />
-          <div v-if="postcategoryId">
-          <q-breadcrumbs-el :label="item.postcategoryId.title" />
-          </div>
-          <q-breadcrumbs-el :label="item.title" />
-        </q-breadcrumbs> -->
       </div>
       <div class="row text__row q-col-gutter-xl">
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12">
@@ -51,8 +44,6 @@
                 <span v-if="item.tags">
                   <q-icon name="local_offer" class="q-mr-sm" /> Tags:
                   <span class="q-mr-md" v-html="item.tags.title"></span>
-
-                  <!-- <a href="" class="text-caption">tourist</a> -->
                 </span>
               </div>
             </q-card-actions>
@@ -95,22 +86,12 @@ import commentService from "../services/commentService";
 import RecentPosts from "../components/RecentPosts.vue";
 import CommentBox from "../components/CommentBox.vue";
 import RelatedPost from "src/components/RelatedPost.vue";
-// import BackgrounHeader from "../components/BackgrounHeader.vue";
 export default {
   components: { RecentPosts, CommentBox, RelatedPost },
-  // components: { BackgrounHeader },
-  // name: 'PageName',
   data() {
     return {
-      // slug: this.$route.params.slug,
-      // rText: "",
       id: this.$route.params.id,
-      // showInside: false,
-      // rName: "",
-      // weblink: "",
-      // rEmail: "",
       comments: [],
-      // replies: [],
       body: "",
       item: {},
     };
@@ -133,7 +114,6 @@ export default {
       try {
         await commentService.getComments(this.id).then((response) => {
           this.comments = response.data.data;
-          // this.replies = response.data.data.replies;
         });
       } catch (err) {
         console.log(err);

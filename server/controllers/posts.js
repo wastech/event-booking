@@ -26,7 +26,6 @@ exports.addPost = asyncHandler(async (req, res, next) => {
     },
   });
   // Save user
-  console.log("this s post", post);
   await post.save();
 
   res.status(200).json({ success: true, data: post });
@@ -41,7 +40,6 @@ exports.getPosts = asyncHandler(async (req, res, next) => {
     Post.find({})
       .populate("userId", "name avatar")
       .populate("postcategoryId", "title")
-      // .populate("tags")
       .sort("-createdAt "),
     req.query
   )
@@ -82,8 +80,6 @@ exports.getPost = asyncHandler(async (req, res, next) => {
 
 // Get  post categories   =>   /api/v1/post/:categoryId
 exports.getCategories = asyncHandler(async (req, res, next) => {
-  console.log(req.param);
-
   const categories = await Post.find({
     postcategoryId: req.params.postcategoryId,
   })
@@ -98,7 +94,6 @@ exports.getCategories = asyncHandler(async (req, res, next) => {
     categories,
   });
 });
-
 
 // Get single post details   =>   /api/v1/post/:categoryId
 exports.getRelated = asyncHandler(async (req, res, next) => {
@@ -107,8 +102,6 @@ exports.getRelated = asyncHandler(async (req, res, next) => {
   })
     .populate("userId")
     .populate("postcategoryId");
-
-  console.log("related", categories)
   if (!categories) {
     return next(new ErrorResponse("category not found", 404));
   }
@@ -117,8 +110,6 @@ exports.getRelated = asyncHandler(async (req, res, next) => {
     categories,
   });
 });
-
-
 
 // Get user post   =>   /api/v1/post/:userId
 exports.getUserPosts = asyncHandler(async (req, res, next) => {
@@ -149,8 +140,6 @@ exports.getTags = asyncHandler(async (req, res, next) => {
     tags,
   });
 });
-
-
 
 // Update Product   =>   /api/v1/admin/product/:id
 // Update Product   =>   /api/v1/admin/product/:id
@@ -185,13 +174,6 @@ exports.deletePost = asyncHandler(async (req, res, next) => {
   if (!post) {
     return next(new ErrorResponse("post not found", 404));
   }
-
-  // // Deleting images associated with the post
-  // for (let i = 0; i < post.imageUrl.length; i++) {
-  //   const result = await cloudinary.v2.uploader.destroy(
-  //     post.imageUrl[i].public_id
-  //   );
-  // }
 
   await post.remove();
 

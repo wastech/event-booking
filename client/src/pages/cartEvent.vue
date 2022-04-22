@@ -13,9 +13,9 @@
       </div>
     </div>
 
-    <div class="blog__section" >
+    <div class="blog__section">
       <div class="text-subtitle1 cart__row">You can use coupon code: D10</div>
-      <div class="row q-col-gutter-lg ">
+      <div class="row q-col-gutter-lg">
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-xs-12">
           <q-card class="q-pa-lg q-my-xl">
             <q-markup-table class="q-my-xl">
@@ -57,9 +57,6 @@
             </div>
           </q-card>
         </div>
-        <!--
-      right side section -->
-
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 q-my-xl">
           <q-card class="my-card q-pa-md">
             <q-card-section>
@@ -68,7 +65,6 @@
                 <q-input outlined v-model="text" label="Outlined" />
                 <div class="btn q-my-md">
                   <q-btn label="apply coupon" class="bl" />
-                  <!-- style="background: #f53f7b; color: white" -->
                 </div>
               </form>
               <div class="text-h6 q-my-lg">Cart Total</div>
@@ -104,7 +100,6 @@
 
                 <div class="btn q-my-md">
                   <q-btn label="check out" class="cbl full-width" />
-                  <!-- style="background: #f53f7b; color: white" -->
                 </div>
               </q-list>
             </q-card-section>
@@ -117,7 +112,6 @@
 
 <script>
 export default {
-  // name: 'ComponentName',
   setup() {
     return {};
   },
