@@ -22,8 +22,8 @@ const advancedResults = (model, populate) => async (req, res, next) => {
   // Finding resource
   query = model
     .find(JSON.parse(queryStr))
-    .populate("userId", "name avatar")
-    .populate("postcategoryId", "title");
+    // .populate("userId", "name avatar")
+    // .populate("postcategoryId", "title");
 
   // Select Fields
   if (req.query.select) {
@@ -41,7 +41,7 @@ const advancedResults = (model, populate) => async (req, res, next) => {
 
   // Pagination
   const page = parseInt(req.query.page, 10) || 1;
-  const limit = parseInt(req.query.limit, 10) || 1;
+  const limit = parseInt(req.query.limit, 10) || 9;
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
   const total = await model.countDocuments();
@@ -78,8 +78,8 @@ const advancedResults = (model, populate) => async (req, res, next) => {
     pagination,
     current_page: page,
     limit,
-    data: results,
     total,
+    data: results,
   };
 
   next();

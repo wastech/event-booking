@@ -26,34 +26,37 @@ exports.createEvent = asyncHandler(async (req, res, next) => {
   res.status(200).json({ success: true, data: event });
 });
 
-// Get all events   =>   /api/v1/events?keyword=apple
+// // Get all events   =>   /api/v1/events?keyword=apple
 exports.getEvents = asyncHandler(async (req, res, next) => {
-  const resPerPage = 30;
-  const eventCount = await Event.countDocuments();
-
-  const apiFeatures = new APIFeatures(
-    Event.find({})
-      .populate("userId", "name avatar")
-      .populate("eventcategoryId", "title")
-      .sort("-createdAt "),
-    req.query
-  )
-    .search()
-    .filter();
-  let events = await apiFeatures.query;
-  let filteredPostsCount = events.length;
-
-  apiFeatures.pagination(resPerPage);
-  events = await apiFeatures.query.clone();
-
-  res.status(200).json({
-    success: true,
-    eventCount,
-    resPerPage,
-    filteredPostsCount,
-    data: events,
-  });
+  res.status(200).json(res.advancedResults);
 });
+// exports.getEvents = asyncHandler(async (req, res, next) => {
+//   const resPerPage = 30;
+//   const eventCount = await Event.countDocuments();
+
+//   const apiFeatures = new APIFeatures(
+//     Event.find({})
+//       .populate("userId", "name avatar")
+//       .populate("eventcategoryId", "title")
+//       .sort("-createdAt "),
+//     req.query
+//   )
+//     .search()
+//     .filter();
+//   let events = await apiFeatures.query;
+//   let filteredPostsCount = events.length;
+
+//   apiFeatures.pagination(resPerPage);
+//   events = await apiFeatures.query.clone();
+
+//   res.status(200).json({
+//     success: true,
+//     eventCount,
+//     resPerPage,
+//     filteredPostsCount,
+//     data: events,
+//   });
+// });
 
 // Get single post details   =>   /api/v1/post/:id
 exports.getEvent = asyncHandler(async (req, res, next) => {

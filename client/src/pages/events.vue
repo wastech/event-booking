@@ -18,13 +18,21 @@
     <div class="event__card">
       <events-card :items="items" />
     </div>
-     <div class="q-pa-lg flex flex-center q-mt-xl">
-      <q-pagination v-model="current" :max="5" direction-links />
+    <div class="q-pa-lg flex flex-center q-mt-sm">
+      <q-pagination
+        v-model="pagination.page"
+
+        :max="pagesNumber"
+        size="md"
+        :boundary-links="true"
+        :to-fn="(page) => ({ query: { page: page } })"
+      />
     </div>
   </q-page>
 </template>
 
 <script>
+import { api } from "boot/axios";
 import EventsCard from "../components/EventsCard.vue";
 import EventsForm from "../components/EventsForm.vue";
 import postService from "../services/eventService";
@@ -35,24 +43,55 @@ export default {
   data() {
     return {
       items: [],
+      perPage: null,
+      currentPage: null,
+      total: null,
+      page: null,
+      pagination: {},
     };
   },
+  created() {
+    (this.pagination = {
+      page: this.currentPage,
+      perPage: this.limit,
+    }),
+      this.fetchData();
+  },
+  watch: {
+    $route: "fetchData",
+  },
+  computed: {
+    pagesNumber() {
+      return Math.ceil(this.total / this.perPage);
+    },
+  },
+  mounted() {
+    this.fetchData();
+  },
+
   methods: {
-    async queryindex() {
+    async fetchData() {
       try {
-        await postService.getEvents().then((response) => {
-          this.items = response.data.data;
-        });
+        this.pagination.page = this.$route.query.page;
+        await api
+          .get(`events`, {
+            params: {
+              page: this.pagination.page,
+            },
+          })
+          .then((response) => {
+            this.items = response.data.data;
+            this.current_page = response.data.current_page;
+            this.perPage = response.data.limit;
+            this.total = response.data.total;
+          });
       } catch (err) {
-        console.log(err.response);
+
       }
     },
     viewPost(item_id) {
       this.$router.push({ name: "blog", params: { id: item_id } });
     },
-  },
-  async mounted() {
-    this.queryindex();
   },
 };
 </script>

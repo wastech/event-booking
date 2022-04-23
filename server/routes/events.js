@@ -13,16 +13,19 @@ const {
   getUserPosts,
 } = require("../controllers/events");
 
-
-
 const router = express.Router({ mergeParams: true });
 
-// const advancedResults = require("../middleware/advancedResults");
+const advancedResults = require("../middleware/advancedResults");
 const { protect, authorize } = require("../middleware/auth");
-
+const Event = require("../models/Event");
 router
   .route("/")
-  .get(getEvents)
+  .get(
+    advancedResults(Event, {
+      path: "eventcategoryId",
+    }),
+    getEvents
+  )
   .post(protect, authorize("admin"), upload.single("imageUrl"), createEvent);
 
 router
@@ -39,6 +42,5 @@ router.route("/category/:eventcategoryId").get(getCategories);
 router.route("/related/:eventcategoryId").get(getRelated);
 router.route("/userpost/:userId").get(getUserPosts);
 router.route("/tags/:tags").get(getTags);
-
 
 module.exports = router;

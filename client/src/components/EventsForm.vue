@@ -24,7 +24,7 @@
             <q-select
               outlined
               v-model="model"
-             
+
               :options="options"
               label="All Categories"
               class="bg-white"
@@ -34,7 +34,7 @@
             <q-select
               outlined
               v-model="model"
-             
+
               :options="options"
               label="All States"
               class="bg-white"
@@ -87,6 +87,7 @@ export default {
   setup() {
     return {
       model: ref(null),
+      text:"",
       options: ["Google", "Facebook", "Twitter", "Apple", "Oracle"],
     };
   },
