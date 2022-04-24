@@ -62,9 +62,7 @@
               </div>
             </q-card-actions>
           </div>
-          <!-- tag section -->
           <div class="section">
-            <!-- import event tab -->
             <event-tab :item="item" />
           </div>
         </div>
@@ -78,11 +76,13 @@
 </template>
 
 <script>
+import mixins from "../mixins/mixins";
 import EventSide from "../components/EventSide.vue";
 import EventTab from "src/components/EventTab.vue";
 import postService from "../services/eventService";
 
 export default {
+  mixins: [mixins],
   components: { EventSide, EventTab },
 
   data() {
